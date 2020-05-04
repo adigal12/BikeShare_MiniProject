@@ -11,3 +11,4 @@ Important changes to project repo:
 * Created "2_EDA.ipynb" and .html version as well in the Notebooks/ repo
 * Created "3_Modeling.ipynb" and .html version as well in the Notebooks/ repo
 * Created "Project_Report.ipynb" and .html version in Deliver/ repo
+* Updated 3_Modeling.ipynb which now creates two .csv files with predictions data. The csv files are in Data/.
