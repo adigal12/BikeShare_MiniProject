@@ -13119,7 +13119,7 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the clean daily bikeshare data</span>
 <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/Users/aditigala/Documents/Pacific/Software_Methods/Bikeshare/Data/daily_clean.csv&quot;</span>
-<span class="n">daily</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="n">daily</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows, Columns = &quot;</span><span class="p">,</span> <span class="n">daily</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">daily</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -13138,7 +13138,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Rows, Columns =  (731, 20)
+<pre>Rows, Columns =  (731, 21)
 </pre>
 </div>
 </div>
@@ -13168,7 +13168,6 @@ div#notebook {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>instant</th>
       <th>dteday</th>
       <th>season</th>
@@ -13177,14 +13176,16 @@ div#notebook {
       <th>holiday</th>
       <th>weekday</th>
       <th>workingday</th>
-      <th>weathersit</th>
       <th>temp</th>
       <th>atemp</th>
-      <th>hum</th>
+      <th>...</th>
       <th>windspeed</th>
       <th>casual</th>
       <th>registered</th>
       <th>cnt</th>
+      <th>OneHot_1</th>
+      <th>OneHot_2</th>
+      <th>OneHot_3</th>
       <th>Year</th>
       <th>Month</th>
       <th>Day</th>
@@ -13192,7 +13193,6 @@ div#notebook {
   </thead>
   <tbody>
     <tr>
-      <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>2011-01-01</td>
@@ -13202,20 +13202,21 @@ div#notebook {
       <td>0</td>
       <td>6</td>
       <td>0</td>
-      <td>2</td>
       <td>0.344167</td>
       <td>0.363625</td>
-      <td>0.805833</td>
+      <td>...</td>
       <td>0.160446</td>
       <td>331</td>
       <td>654</td>
       <td>985</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>1</td>
     </tr>
     <tr>
-      <td>1</td>
       <td>1</td>
       <td>2</td>
       <td>2011-01-02</td>
@@ -13225,20 +13226,21 @@ div#notebook {
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>2</td>
       <td>0.363478</td>
       <td>0.353739</td>
-      <td>0.696087</td>
+      <td>...</td>
       <td>0.248539</td>
       <td>131</td>
       <td>670</td>
       <td>801</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>2</td>
     </tr>
     <tr>
-      <td>2</td>
       <td>2</td>
       <td>3</td>
       <td>2011-01-03</td>
@@ -13248,20 +13250,21 @@ div#notebook {
       <td>0</td>
       <td>1</td>
       <td>1</td>
-      <td>1</td>
       <td>0.196364</td>
       <td>0.189405</td>
-      <td>0.437273</td>
+      <td>...</td>
       <td>0.248309</td>
       <td>120</td>
       <td>1229</td>
       <td>1349</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>3</td>
     </tr>
     <tr>
-      <td>3</td>
       <td>3</td>
       <td>4</td>
       <td>2011-01-04</td>
@@ -13271,20 +13274,21 @@ div#notebook {
       <td>0</td>
       <td>2</td>
       <td>1</td>
-      <td>1</td>
       <td>0.200000</td>
       <td>0.212122</td>
-      <td>0.590435</td>
+      <td>...</td>
       <td>0.160296</td>
       <td>108</td>
       <td>1454</td>
       <td>1562</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>4</td>
     </tr>
     <tr>
-      <td>4</td>
       <td>4</td>
       <td>5</td>
       <td>2011-01-05</td>
@@ -13294,20 +13298,23 @@ div#notebook {
       <td>0</td>
       <td>3</td>
       <td>1</td>
-      <td>1</td>
       <td>0.226957</td>
       <td>0.229270</td>
-      <td>0.436957</td>
+      <td>...</td>
       <td>0.186900</td>
       <td>82</td>
       <td>1518</td>
       <td>1600</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>5</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 21 columns</p>
 </div>
 </div>
 
@@ -13419,7 +13426,7 @@ Dep. Variable:                    cnt   R-squared:                       0.752
 Model:                            OLS   Adj. R-squared:                  0.750
 Method:                 Least Squares   F-statistic:                     439.9
 Date:                Sun, 03 May 2020   Prob (F-statistic):          9.09e-217
-Time:                        18:26:04   Log-Likelihood:                -6059.9
+Time:                        18:55:47   Log-Likelihood:                -6059.9
 No. Observations:                 731   AIC:                         1.213e+04
 Df Residuals:                     725   BIC:                         1.216e+04
 Df Model:                           5                                         
@@ -13490,7 +13497,7 @@ Dep. Variable:                    cnt   R-squared:                       0.688
 Model:                            OLS   Adj. R-squared:                  0.687
 Method:                 Least Squares   F-statistic:                     802.2
 Date:                Sun, 03 May 2020   Prob (F-statistic):          8.49e-185
-Time:                        18:26:04   Log-Likelihood:                -6144.1
+Time:                        18:55:47   Log-Likelihood:                -6144.1
 No. Observations:                 731   AIC:                         1.229e+04
 Df Residuals:                     728   BIC:                         1.231e+04
 Df Model:                           2                                         
@@ -13535,7 +13542,7 @@ strong multicollinearity or other numerical problems.
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the clean hourly csv data</span>
 <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/Users/aditigala/Documents/Pacific/Software_Methods/Bikeshare/Data/hourly_clean.csv&quot;</span>
-<span class="n">hourly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="n">hourly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows, Columns = &quot;</span><span class="p">,</span> <span class="n">hourly</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">hourly</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -13554,7 +13561,7 @@ strong multicollinearity or other numerical problems.
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Rows, Columns =  (17379, 21)
+<pre>Rows, Columns =  (17379, 23)
 </pre>
 </div>
 </div>
@@ -13584,7 +13591,6 @@ strong multicollinearity or other numerical problems.
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>instant</th>
       <th>dteday</th>
       <th>season</th>
@@ -13594,14 +13600,15 @@ strong multicollinearity or other numerical problems.
       <th>holiday</th>
       <th>weekday</th>
       <th>workingday</th>
-      <th>...</th>
       <th>temp</th>
-      <th>atemp</th>
-      <th>hum</th>
-      <th>windspeed</th>
+      <th>...</th>
       <th>casual</th>
       <th>registered</th>
       <th>cnt</th>
+      <th>OneHot_1</th>
+      <th>OneHot_2</th>
+      <th>OneHot_3</th>
+      <th>OneHot_4</th>
       <th>Year</th>
       <th>Month</th>
       <th>Day</th>
@@ -13610,7 +13617,6 @@ strong multicollinearity or other numerical problems.
   <tbody>
     <tr>
       <td>0</td>
-      <td>0</td>
       <td>1</td>
       <td>2011-01-01</td>
       <td>1</td>
@@ -13620,20 +13626,20 @@ strong multicollinearity or other numerical problems.
       <td>0</td>
       <td>6</td>
       <td>0</td>
-      <td>...</td>
       <td>0.24</td>
-      <td>0.2879</td>
-      <td>0.81</td>
-      <td>0.0</td>
+      <td>...</td>
       <td>3</td>
       <td>13</td>
       <td>16</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>1</td>
     </tr>
     <tr>
-      <td>1</td>
       <td>1</td>
       <td>2</td>
       <td>2011-01-01</td>
@@ -13644,20 +13650,20 @@ strong multicollinearity or other numerical problems.
       <td>0</td>
       <td>6</td>
       <td>0</td>
-      <td>...</td>
       <td>0.22</td>
-      <td>0.2727</td>
-      <td>0.80</td>
-      <td>0.0</td>
+      <td>...</td>
       <td>8</td>
       <td>32</td>
       <td>40</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>1</td>
     </tr>
     <tr>
-      <td>2</td>
       <td>2</td>
       <td>3</td>
       <td>2011-01-01</td>
@@ -13668,20 +13674,20 @@ strong multicollinearity or other numerical problems.
       <td>0</td>
       <td>6</td>
       <td>0</td>
-      <td>...</td>
       <td>0.22</td>
-      <td>0.2727</td>
-      <td>0.80</td>
-      <td>0.0</td>
+      <td>...</td>
       <td>5</td>
       <td>27</td>
       <td>32</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>1</td>
     </tr>
     <tr>
-      <td>3</td>
       <td>3</td>
       <td>4</td>
       <td>2011-01-01</td>
@@ -13692,20 +13698,20 @@ strong multicollinearity or other numerical problems.
       <td>0</td>
       <td>6</td>
       <td>0</td>
-      <td>...</td>
       <td>0.24</td>
-      <td>0.2879</td>
-      <td>0.75</td>
-      <td>0.0</td>
+      <td>...</td>
       <td>3</td>
       <td>10</td>
       <td>13</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>1</td>
     </tr>
     <tr>
-      <td>4</td>
       <td>4</td>
       <td>5</td>
       <td>2011-01-01</td>
@@ -13716,21 +13722,22 @@ strong multicollinearity or other numerical problems.
       <td>0</td>
       <td>6</td>
       <td>0</td>
-      <td>...</td>
       <td>0.24</td>
-      <td>0.2879</td>
-      <td>0.75</td>
-      <td>0.0</td>
+      <td>...</td>
       <td>0</td>
       <td>1</td>
       <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>2011</td>
       <td>1</td>
       <td>1</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 21 columns</p>
+<p>5 rows × 23 columns</p>
 </div>
 </div>
 
@@ -13842,7 +13849,7 @@ Dep. Variable:                    cnt   R-squared:                       0.306
 Model:                            OLS   Adj. R-squared:                  0.306
 Method:                 Least Squares   F-statistic:                     1913.
 Date:                Sun, 03 May 2020   Prob (F-statistic):               0.00
-Time:                        18:26:25   Log-Likelihood:            -1.1187e+05
+Time:                        18:56:09   Log-Likelihood:            -1.1187e+05
 No. Observations:               17379   AIC:                         2.238e+05
 Df Residuals:                   17374   BIC:                         2.238e+05
 Df Model:                           4                                         
